@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import *
 # Create your views here.
 
 # Homepage
@@ -77,3 +78,7 @@ class RegisterPageView(TemplateView):
 class DashboardPageView(LoginRequiredMixin ,TemplateView):
     login_url = 'login'
     template_name = 'dashboard.html'
+    
+    def get(self, request):
+        notifications = Notification.objects.filter(user=request.user)
+        return render(request, self.template_name)
