@@ -51,7 +51,10 @@ class Solution(Model):
 
 
 class Notification(Model):
+    title = models.CharField(max_length=100)
     text = models.TextField()
-    image = models.ImageField(upload_to='upload/notificationimgs')
     timestamp = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(unique=True)
+    is_active = models.BooleanField()
+    
+    def __str__(self):
+        return self.title

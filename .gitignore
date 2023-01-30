@@ -9,6 +9,9 @@ media
 # Static files
 staticfiles/
 
+# Uploads
+upload/
+
 # Backup files # 
 *.bak 
 

@@ -80,5 +80,5 @@ class DashboardPageView(LoginRequiredMixin ,TemplateView):
     template_name = 'dashboard.html'
     
     def get(self, request):
-        notifications = Notification.objects.filter(user=request.user)
-        return render(request, self.template_name)
+        notifications = Notification.objects.order_by('-id')[0:5]
+        return render(request, self.template_name, {'notifications': notifications})
