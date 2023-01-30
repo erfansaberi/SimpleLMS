@@ -82,3 +82,21 @@ class DashboardPageView(LoginRequiredMixin ,TemplateView):
     def get(self, request):
         notifications = Notification.objects.order_by('-id')[0:5]
         return render(request, self.template_name, {'notifications': notifications})
+    
+
+class NotificationsPageView(LoginRequiredMixin ,TemplateView):
+    login_url = 'login'
+    template_name = 'notifications.html'
+    
+    def get(self, request):
+        notifications = Notification.objects.order_by('-id')
+        return render(request, self.template_name, {'notifications': notifications})
+    
+    
+class VideosPageView(LoginRequiredMixin ,TemplateView):
+    login_url = 'login'
+    template_name = 'videos.html'
+    
+    def get(self, request):
+        videos = Video.objects.order_by('-id')
+        return render(request, self.template_name, {'videos': videos})
