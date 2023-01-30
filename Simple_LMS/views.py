@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 # Homepage
@@ -27,7 +28,7 @@ class LoginPageView(TemplateView):
         if (authenticate(request, username=username, password=password)):
             login(request, authenticate(request, username=username, password=password))
             messages.success(request, 'Login successful')
-            return render(request, 'index.html')
+            return redirect('dashboard')
         else:
             messages.warning(request, 'Username and passowrd does not match')
             return render(request, self.template_name)
@@ -73,5 +74,6 @@ class RegisterPageView(TemplateView):
         return redirect('login')
     
 # Dashboard
-class DashboardPageView(TemplateView):
+class DashboardPageView(LoginRequiredMixin ,TemplateView):
+    login_url = 'login'
     template_name = 'dashboard.html'
