@@ -36,6 +36,7 @@ class Homeworks(Model):
     name = models.CharField(max_length=150)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(upload_to='upload/homeworks')
+    solution_file = models.FileField(upload_to='upload/solutions')
     is_active = models.BooleanField(unique=True)
 
     def __str__(self):
@@ -45,11 +46,12 @@ class Homeworks(Model):
 class Solutions(Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     home_work = models.ForeignKey(Homeworks, on_delete=models.CASCADE)
-    file = models.FileField('uploads/solutions')
+    file = models.FileField('uploads/studentsolutions')
     upload_date = models.DateTimeField(auto_now_add=True)
 
 
 class Notifications(Model):
     text = models.TextField()
     image = models.ImageField(upload_to='upload/notificationimgs')
+    timestamp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(unique=True)
