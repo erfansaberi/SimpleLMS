@@ -37,7 +37,7 @@ class Homework(Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(upload_to='upload/homeworks')
     solution_file = models.FileField(upload_to='upload/solutions', null=True, blank=True)
-    is_active = models.BooleanField(unique=True)
+    is_active = models.BooleanField()
 
     def __str__(self):
         return f'{self.name} - {self.course}'
