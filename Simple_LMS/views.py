@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -31,3 +31,47 @@ class LoginPageView(TemplateView):
         else:
             messages.warning(request, 'Username and passowrd does not match')
             return render(request, self.template_name)
+
+# Logout
+def logout_view(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, 'You are not logged in')
+        return redirect('login')
+    logout(request)
+    messages.success(request, 'Logout successful')
+    return redirect('/')
+
+# Register
+class RegisterPageView(TemplateView):
+    template_name = 'register.html'
+    
+    def post(self, request):
+        username = request.POST.get('studentid')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirmpassword')
+        firstname = request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        
+        if (password != confirm_password):
+            messages.warning(request, 'Password and confirm password does not match')
+            return render(request, self.template_name)
+        
+        user = User.objects.filter(username=username)
+        if user:
+            messages.warning(request, 'Student Id already exists')
+            return render(request, self.template_name)
+        
+        user = User.objects.filter(email=email)
+        if user:
+            messages.warning(request, 'Email already exists')
+            return render(request, self.template_name)
+        
+        user = User.objects.create_user(username=username, email=email, password=password, first_name=firstname, last_name=lastname)
+        user.save()
+        messages.success(request, 'Registration successful')
+        return redirect('login')
+    
+# Dashboard
+class DashboardPageView(TemplateView):
+    template_name = 'dashboard.html'
