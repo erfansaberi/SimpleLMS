@@ -145,7 +145,7 @@
             <!-- End of Notifications -->
             <br>
             <!-- Latest Homeworks -->
-            <h2>Homeworks <span class="text-secondary h5">(Latest)</span></h2>
+            <a style="text-decoration: none;" class="h2" href="{% url 'homeworks' %}">Homeworks <span class="text-secondary h5">(Latest)</span></a>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
@@ -153,7 +153,6 @@
                         <th scope="col">Title</th>
                         <th scope="col">Homework</th>
                         <th scope="col">Deadline</th>
-                        <th scope="col">Solution upload</th>
                         <th scope="col">Solution</th>
                     </tr>
                     </thead>
@@ -162,14 +161,6 @@
                         <td>{{ active_homework.name }}</td>
                         <td><a href="{{ active_homework.file.url }}">Download</a></td>
                         <td>{{ active_homework.deadline }}</td>
-                        <form action="{% url 'solution' %}" method="post">
-                            {% csrf_token %}
-                            <td>
-                                <input type="file" name="solution">
-                                <input type="hidden" value="{{ active_homework.id }}" name="homework_id">
-                                <input type="submit">
-                            </td>
-                        </form>
                         <td>Will be uploaded here</td>
                     </tr>
                     </tbody>

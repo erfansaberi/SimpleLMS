@@ -10,6 +10,6 @@ urlpatterns = [
     path('dashboard/', views.DashboardPageView.as_view(), name='dashboard'),
     path('dashboard/notifications', views.NotificationsPageView.as_view(), name='notifications'),
     path('dashboard/videos', views.VideosPageView.as_view(), name='videos'),
-    path('dashboard/homeworks', views.HomeworksPageView.as_view(), name='homework'),
+    path('dashboard/homeworks', views.HomeworksPageView.as_view(), name='homeworks'),
     path('dashboard/solution-upload/', views.SolutionUpload.as_view(), name='solution'),
 ]
