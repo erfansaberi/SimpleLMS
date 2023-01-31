@@ -37,6 +37,8 @@ class Homework(Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/homeworks')
     solution_file = models.FileField(upload_to='upload/solutions', null=True, blank=True)
+    upload_date = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField()
 
     def __str__(self):

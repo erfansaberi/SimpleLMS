@@ -150,14 +150,16 @@
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
+                        <th scope="col">Course</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Homework</th>
+                        <th scope="col">Homework File</th>
                         <th scope="col">Deadline</th>
-                        <th scope="col">Solution</th>
+                        <th scope="col">Teacher Solution</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
+                        <td>{{ active_homework.course }}</td>
                         <td>{{ active_homework.name }}</td>
                         <td><a href="{{ active_homework.file.url }}">Download</a></td>
                         <td>{{ active_homework.deadline }}</td>
