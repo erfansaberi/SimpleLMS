@@ -107,28 +107,12 @@
                     class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
             >
                 <h1 class="h2">Dashboard</h1>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">
-                            Share
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">
-                            Export
-                        </button>
-                    </div>
-                    <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                    >
-                        <span data-feather="calendar" class="align-text-bottom"></span>
-                        This week
-                    </button>
-                </div>
+                
             </div>
             {% include "alert.html" %}
 
             <!-- Latest Notifications -->
-            <h2>Notifications <span class="text-secondary h5">(Latest)</span></h2>
+            <h3>Notifications <span class="text-secondary h5">(Latest)</span></h3>
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
                 <div class="list-group list-group-flush border-bottom scrollarea">
                     {% for notification in notifications %}
@@ -145,7 +129,7 @@
             <!-- End of Notifications -->
             <br>
             <!-- Latest Homeworks -->
-            <a style="text-decoration: none;" class="h2" href="{% url 'homeworks' %}">Homeworks <span class="text-secondary h5">(Latest)</span></a>
+            <a style="text-decoration: none;" class="h3" href="{% url 'homeworks' %}">Homeworks <span class="text-secondary h5">(Latest)</span></a>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
