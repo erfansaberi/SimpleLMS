@@ -161,7 +161,11 @@
                         <td>{{ active_homework.name }}</td>
                         <td><a href="{{ active_homework.file.url }}">Download</a></td>
                         <td>{{ active_homework.deadline }}</td>
-                        <td>Will be uploaded here</td>
+                        {% if active_homework.solution_file %}
+                            <td><a href="{{ active_homework.solution_file.url }}">Download</a></td>
+                        {% else %}
+                            <td>Not submitted</td>
+                        {% endif %}
                     </tr>
                     </tbody>
                 </table>
