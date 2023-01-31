@@ -1,197 +1,197 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- We used bootstrap examples for our front end -->
     <meta
-      name="author"
-      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+            name="author"
+            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
-    <meta name="generator" content="Hugo 0.108.0" />
+    <meta name="generator" content="Hugo 0.108.0"/>
     <title>Dashboard</title>
 
     <link
-      rel="canonical"
-      href="https://getbootstrap.com/docs/5.3/examples/dashboard/"
+            rel="canonical"
+            href="https://getbootstrap.com/docs/5.3/examples/dashboard/"
     />
 
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet"/>
 
     <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
-      }
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, 0.1);
-        border: solid rgba(0, 0, 0, 0.15);
-        border-width: 1px 0;
-        box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
-          inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
-      }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, 0.1);
+            border: solid rgba(0, 0, 0, 0.15);
+            border-width: 1px 0;
+            box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+            inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+        }
 
-      .bi {
-        vertical-align: -0.125em;
-        fill: currentColor;
-      }
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
+        .bi {
+            vertical-align: -0.125em;
+            fill: currentColor;
+        }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
-  </head>
-  <body>
-    <header
-      class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet"/>
+</head>
+<body>
+<header
+        class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
+>
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Simple LMS</a>
+    <button
+            class="navbar-toggler position-absolute d-md-none collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#sidebarMenu"
+            aria-controls="sidebarMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
     >
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Simple LMS</a>
-      <button
-        class="navbar-toggler position-absolute d-md-none collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#sidebarMenu"
-        aria-controls="sidebarMenu"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-nav">
+    </button>
+    <div class="navbar-nav">
         <div class="nav-item text-nowrap">
-          <a class="nav-link px-3" href="/logout">Logout</a>
+            <a class="nav-link px-3" href="/logout">Logout</a>
         </div>
-      </div>
-    </header>
+    </div>
+</header>
 
-    <div class="container-fluid">
-      <div class="row">
+<div class="container-fluid">
+    <div class="row">
         {% include "sidebar.html" %}
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-          <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-          >
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Share
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Export
-                </button>
-              </div>
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-secondary dropdown-toggle"
-              >
-                <span data-feather="calendar" class="align-text-bottom"></span>
-                This week
-              </button>
-            </div>
-          </div>
-          {% include "alert.html" %}
-        
-          <!-- Latest Notifications -->
-          <h2>Notifications <span class="text-secondary h5">(Latest)</span></h2>  
-          <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
-            <div class="list-group list-group-flush border-bottom scrollarea">
-              {% for notification in notifications %}
-              <a class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
-                <div class="d-flex w-100 align-items-center justify-content-between">
-                  <strong class="mb-1">{{notification.title}}</strong>
-                  <small>{{notification.timestamp}}</small>
+            <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+            >
+                <h1 class="h2">Dashboard</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                            Share
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                            Export
+                        </button>
+                    </div>
+                    <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                    >
+                        <span data-feather="calendar" class="align-text-bottom"></span>
+                        This week
+                    </button>
                 </div>
-                <div class="col-10 mb-1 small">{{notification.text}}</div>
-              </a>
-              {% endfor %}
             </div>
-          </div>
-          <!-- End of Notifications -->
-          <br>
-          <!-- Latest Homeworks -->
-          <h2>Homeworks <span class="text-secondary h5">(Latest)</span></h2>
-          <div class="table-responsive">
-            <table class="table table-striped table-sm">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Header</th>
-                  <th scope="col">Header</th>
-                  <th scope="col">Header</th>
-                  <th scope="col">Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>random</td>
-                  <td>data</td>
-                  <td>placeholder</td>
-                  <td>text</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>placeholder</td>
-                  <td>irrelevant</td>
-                  <td>visual</td>
-                  <td>layout</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <!-- End of Homeworks -->
+            {% include "alert.html" %}
+
+            <!-- Latest Notifications -->
+            <h2>Notifications <span class="text-secondary h5">(Latest)</span></h2>
+            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+                <div class="list-group list-group-flush border-bottom scrollarea">
+                    {% for notification in notifications %}
+                        <a class="list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <strong class="mb-1">{{ notification.title }}</strong>
+                                <small>{{ notification.timestamp }}</small>
+                            </div>
+                            <div class="col-10 mb-1 small">{{ notification.text }}</div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- End of Notifications -->
+            <br>
+            <!-- Latest Homeworks -->
+            <h2>Homeworks <span class="text-secondary h5">(Latest)</span></h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Homework</th>
+                        <th scope="col">Deadline</th>
+                        <th scope="col">Solution upload</th>
+                        <th scope="col">Solution</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ active_homework.name }}</td>
+                        <td><a href="{{ active_homework.file.url }}">Download</a></td>
+                        <td>{{ active_homework.deadline }}</td>
+                        <form action="{% url 'solution' %}" method="post">
+                            {% csrf_token %}
+                            <td>
+                                <input type="file" name="solution">
+                                <input type="hidden" value="{{ active_homework.id }}" name="homework_id">
+                                <input type="submit">
+                            </td>
+                        </form>
+                        <td>Will be uploaded here</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- End of Homeworks -->
         </main>
-      </div>
     </div>
+</div>
 
-    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-      integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-      integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-      crossorigin="anonymous"
-    ></script>
-    <script src="dashboard.js"></script>
-  </body>
+<script
+        src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+        crossorigin="anonymous"
+></script>
+<script src="dashboard.js"></script>
+</body>
 </html>
