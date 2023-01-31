@@ -149,5 +149,5 @@ class NotesPageView(LoginRequiredMixin, TemplateView):
     template_name = 'notes.html'
 
     def get(self, request):
-        notes = Note.objects.order_by('-id')
+        notes = Note.objects.order_by('-number')
         return render(request, self.template_name, {'notes': notes})

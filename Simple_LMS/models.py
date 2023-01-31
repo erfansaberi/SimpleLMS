@@ -13,8 +13,9 @@ class Course(Model):
 
 
 class Note(Model):
-    number = models.IntegerField(unique=True)
+    number = models.IntegerField()
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(upload_to='notes')
     timestamp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField()
