@@ -131,16 +131,16 @@
                             <td><a href="{{ item.homework.file.url }}">Download</a></td>
                             <td>{{ item.homework.deadline }}</td>
                             {% if item.homework.is_active %}
-                            <form action="{% url 'solution' %}" method="post">
+                            <form enctype="multipart/form-data" action="{% url 'solution' %}" method="post">
                                 {% csrf_token %}
                                 <td>
-                                    <input type="file" name="solution">
+                                    <input type="file" name="solution" required>
                                     <input type="hidden" value="{{ item.homework.id }}" name="homework_id">
-                                    <input type="submit" value="Upload">
+                                    <input type="submit">
                                 </td>
                             </form>
                             {% else %}
-                                <td>Homework is not active</td>
+                                <td>Deadline passed</td>
                             {% endif %}
                             {% if item.studentsolution %}
                                 <td><a href="{{ item.studentsolution.file.url }}">Download</a></td>

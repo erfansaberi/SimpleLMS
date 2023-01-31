@@ -124,9 +124,9 @@
                     {% for note in notes %}
                         <tr>
                             <td>{{ note.course }}</td>
-                            <td>{{ note.title }}</td>
+                            <td>{{ note.name }}</td>
                             <td><a href="{{ note.file.url }}">Download</a></td>
-                            <td>{{ note.timestamp }}</td>
+                            <td>{{ note.upload_date }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

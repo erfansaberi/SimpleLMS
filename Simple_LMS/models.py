@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models import Model
 
 
-
 class Course(Model):
     name = models.CharField(max_length=50)
     is_active = models.BooleanField()
@@ -13,20 +12,19 @@ class Course(Model):
 
 
 class Note(Model):
-    number = models.IntegerField()
+    name = models.CharField(max_length=100)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, null=True, blank=True)
-    file = models.FileField(upload_to='notes')
-    timestamp = models.DateTimeField(auto_now_add=True)
+    file = models.FileField(upload_to='uploads/notes')
     is_active = models.BooleanField()
+    upload_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.course} - {self.number}'
+        return f'{self.course} - {self.name}'
 
 
 class Video(Model):
     subject = models.CharField(max_length=100)
-    file = models.FileField(upload_to='videos')
+    file = models.FileField(upload_to='uploads/videos')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     is_active = models.BooleanField()
 
@@ -37,7 +35,7 @@ class Video(Model):
 class Homework(Model):
     name = models.CharField(max_length=150)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='homeworks')
+    file = models.FileField(upload_to='uploads/homeworks')
     solution_file = models.FileField(upload_to='solutions', null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
@@ -50,16 +48,18 @@ class Homework(Model):
 class Solution(Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     home_work = models.ForeignKey(Homework, on_delete=models.CASCADE)
-    file = models.FileField('studentsolutions')
+    file = models.FileField(upload_to='uploads/student_solutions')
     upload_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.student.username} - {self.home_work} - {self.upload_date}'
 
 
 class Notification(Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField()
-    
+
     def __str__(self):
         return self.title

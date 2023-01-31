@@ -1,9 +1,11 @@
 import collections
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import TemplateView
 
@@ -95,16 +97,20 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {'notifications': notifications, 'homeworks': homeworks})
 
 
-class SolutionUpload(LoginRequiredMixin, View): # TODO: BUG - Solution upload not working
+class SolutionUpload(LoginRequiredMixin, View):
     def post(self, request: HttpRequest):
         user = request.user
         homework_id = request.POST.get('homework_id')
-        user_solution = request.POST.get('solution')
+        user_solution = request.FILES.get('solution')
         homework = Homework.objects.filter(id=homework_id).first()
-        solution = Solution(student=user, home_work=homework, file=user_solution)
-        solution.save()
-        messages.success(request, 'Solution uploaded successfully')
-        return redirect(self.request.META.get('HTTP_REFERER'))
+        if homework:
+            solution = Solution(student=user, home_work=homework, file=user_solution)
+            solution.save()
+            messages.success(request, 'Solution uploaded successfully')
+        else:
+            messages.error(request, 'Please upload a file first')
+
+        return redirect(reverse('homeworks'))
 
 
 class NotificationsPageView(LoginRequiredMixin, TemplateView):
@@ -136,18 +142,19 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
         homeworks_and_solutions = []
         for homework in homeworks:
             for solution in student_solutions:
-                if solution.home_work == homework:
+                if solution.home_work.id == homework.id:
                     homeworks_and_solutions.append(homework_and_solution(homework, solution))
                     break
             else:
                 homeworks_and_solutions.append(homework_and_solution(homework, None))
-        
+
         return render(request, self.template_name, {"homeworks_and_solutions": homeworks_and_solutions})
-    
+
+
 class NotesPageView(LoginRequiredMixin, TemplateView):
     login_url = 'login'
     template_name = 'notes.html'
 
     def get(self, request):
-        notes = Note.objects.order_by('-number')
+        notes = Note.objects.order_by('-id')
         return render(request, self.template_name, {'notes': notes})
