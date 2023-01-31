@@ -15,7 +15,7 @@ class Course(Model):
 class Note(Model):
     number = models.IntegerField(unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='uploads/notes')
+    file = models.FileField(upload_to='notes')
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Note(Model):
 
 class Video(Model):
     subject = models.CharField(max_length=100)
-    file = models.FileField(upload_to='uploads/videos')
+    file = models.FileField(upload_to='videos')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     is_active = models.BooleanField()
 
@@ -35,8 +35,8 @@ class Video(Model):
 class Homework(Model):
     name = models.CharField(max_length=150)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='uploads/homeworks')
-    solution_file = models.FileField(upload_to='upload/solutions', null=True, blank=True)
+    file = models.FileField(upload_to='homeworks')
+    solution_file = models.FileField(upload_to='solutions', null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField()
@@ -48,7 +48,7 @@ class Homework(Model):
 class Solution(Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     home_work = models.ForeignKey(Homework, on_delete=models.CASCADE)
-    file = models.FileField('uploads/studentsolutions')
+    file = models.FileField('studentsolutions')
     upload_date = models.DateTimeField(auto_now_add=True)
 
 

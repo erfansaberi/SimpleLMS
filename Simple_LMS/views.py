@@ -96,17 +96,15 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, context)
 
 
-class SolutionUpload(View):
+class SolutionUpload(LoginRequiredMixin, View): # TODO: BUG - Solution upload not working
     def post(self, request: HttpRequest):
         user = request.user
         homework_id = request.POST.get('homework_id')
         user_solution = request.POST.get('solution')
-        print(user)
-        print(homework_id)
-        print(user_solution)
         homework = Homework.objects.filter(id=homework_id).first()
         solution = Solution(student=user, home_work=homework, file=user_solution)
         solution.save()
+        messages.success(request, 'Solution uploaded successfully')
         return redirect(self.request.META.get('HTTP_REFERER'))
 
 

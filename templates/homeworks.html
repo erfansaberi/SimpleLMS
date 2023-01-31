@@ -159,12 +159,12 @@
                                 <td>Homework is not active</td>
                             {% endif %}
                             {% if item.studentsolution %}
-                                <td><a href="{{ item.studentsolution.file }}">Download</a></td>
+                                <td><a href="{{ item.studentsolution.file.url }}">Download</a></td>
                             {% else %}
                                 <td>Not uploaded yet</td>
                             {% endif %}
                             {% if item.homework.solution_file %}
-                                <td><a href="{{ item.homework.solution_file }}">Download</a></td>
+                                <td><a href="{{ item.homework.solution_file.url }}">Download</a></td>
                             {% else %}
                                 <td>Not uploaded yet</td>
                             {% endif %}
