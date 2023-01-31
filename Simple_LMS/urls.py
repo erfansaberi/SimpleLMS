@@ -12,4 +12,5 @@ urlpatterns = [
     path('dashboard/videos', views.VideosPageView.as_view(), name='videos'),
     path('dashboard/homeworks', views.HomeworksPageView.as_view(), name='homeworks'),
     path('dashboard/solution-upload/', views.SolutionUpload.as_view(), name='solution'),
+    path('dashboard/notes', views.NotesPageView.as_view(), name='notes'),
 ]

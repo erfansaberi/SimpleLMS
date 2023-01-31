@@ -16,6 +16,7 @@ class Note(Model):
     number = models.IntegerField(unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(upload_to='notes')
+    timestamp = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField()
 
     def __str__(self):
@@ -53,6 +54,7 @@ class Solution(Model):
 
 
 class Notification(Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100)
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)

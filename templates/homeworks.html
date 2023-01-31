@@ -127,11 +127,11 @@
             </div>
             {% include "alert.html" %}
             <!-- Active Homeworks -->
-            <h2>Homeworks</h2>
             <div class="table-responsive">
                 <table class="table table-striped table-sm">
                     <thead>
                     <tr>
+                        <th scope="col">Course</th>
                         <th scope="col">Title</th>
                         <th scope="col">Homework</th>
                         <th scope="col">Deadline</th>
@@ -143,6 +143,7 @@
                     <tbody>
                     {% for item in homeworks_and_solutions %}
                         <tr>
+                            <td>{{ item.homework.course }}</td>
                             <td>{{ item.homework.name }}</td>
                             <td><a href="{{ item.homework.file.url }}">Download</a></td>
                             <td>{{ item.homework.deadline }}</td>

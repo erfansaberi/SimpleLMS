@@ -90,10 +90,9 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get(self, request):
-        notifications = Notification.objects.order_by('-id')[0:5]
-        active_homework = Homework.objects.filter(is_active=True).first()
-        context = {'notifications': notifications, 'active_homework': active_homework}
-        return render(request, self.template_name, context)
+        notifications = Notification.objects.filter(is_active=True).order_by('-id')[0:5]
+        homeworks = Homework.objects.filter(is_active=True).order_by('-id')[0:5]
+        return render(request, self.template_name, {'notifications': notifications, 'homeworks': homeworks})
 
 
 class SolutionUpload(LoginRequiredMixin, View): # TODO: BUG - Solution upload not working
@@ -144,3 +143,11 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
                 homeworks_and_solutions.append(homework_and_solution(homework, None))
         
         return render(request, self.template_name, {"homeworks_and_solutions": homeworks_and_solutions})
+    
+class NotesPageView(LoginRequiredMixin, TemplateView):
+    login_url = 'login'
+    template_name = 'notes.html'
+
+    def get(self, request):
+        notes = Note.objects.order_by('-id')
+        return render(request, self.template_name, {'notes': notes})
