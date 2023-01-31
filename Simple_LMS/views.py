@@ -125,3 +125,12 @@ class VideosPageView(LoginRequiredMixin, TemplateView):
     def get(self, request):
         videos = Video.objects.order_by('-id')
         return render(request, self.template_name, {'videos': videos})
+
+
+class HomeworksPageView(LoginRequiredMixin, TemplateView):
+    login_url = 'login'
+    template_name = 'homeworks.html'
+
+    def get(self, request):
+        homeworks = Homework.objects.order_by('-id')
+        return render(request, self.template_name, {'homeworks': homeworks})
