@@ -11,6 +11,7 @@ staticfiles/
 
 # Uploads
 upload/
+uploads/
 
 # Backup files # 
 *.bak 

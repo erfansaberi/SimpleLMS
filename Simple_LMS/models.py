@@ -35,7 +35,7 @@ class Video(Model):
 class Homework(Model):
     name = models.CharField(max_length=150)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    file = models.FileField(upload_to='upload/homeworks')
+    file = models.FileField(upload_to='uploads/homeworks')
     solution_file = models.FileField(upload_to='upload/solutions', null=True, blank=True)
     is_active = models.BooleanField()
 
