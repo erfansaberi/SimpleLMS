@@ -1,3 +1,4 @@
+import collections
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -133,4 +134,15 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
 
     def get(self, request):
         homeworks = Homework.objects.order_by('-id')
-        return render(request, self.template_name, {'homeworks': homeworks})
+        student_solutions = Solution.objects.filter(student=request.user)
+        homework_and_solution = collections.namedtuple('HomeworkAndSolution', ['homework', 'studentsolution'])
+        homeworks_and_solutions = []
+        for homework in homeworks:
+            for solution in student_solutions:
+                if solution.home_work == homework:
+                    homeworks_and_solutions.append(homework_and_solution(homework, solution))
+                    break
+            else:
+                homeworks_and_solutions.append(homework_and_solution(homework, None))
+        
+        return render(request, self.template_name, {"homeworks_and_solutions": homeworks_and_solutions})

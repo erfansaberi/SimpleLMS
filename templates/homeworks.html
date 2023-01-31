@@ -136,35 +136,42 @@
                         <th scope="col">Homework</th>
                         <th scope="col">Deadline</th>
                         <th scope="col">Solution upload</th>
+                        <th scope="col">Your Solution</th>
                         <th scope="col">Teacher Solution</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for homework in homeworks %}
+                    {% for item in homeworks_and_solutions %}
                         <tr>
-                            <td>{{ homework.name }}</td>
-                            <td><a href="{{ homework.file.url }}">Download</a></td>
-                            <td>{{ homework.deadline }}</td>
-                            {% if homework.is_active %}
+                            <td>{{ item.homework.name }}</td>
+                            <td><a href="{{ item.homework.file.url }}">Download</a></td>
+                            <td>{{ item.homework.deadline }}</td>
+                            {% if item.homework.is_active %}
                             <form action="{% url 'solution' %}" method="post">
                                 {% csrf_token %}
                                 <td>
                                     <input type="file" name="solution">
-                                    <input type="hidden" value="{{ homework.id }}" name="homework_id">
-                                    <input type="submit">
+                                    <input type="hidden" value="{{ item.homework.id }}" name="homework_id">
+                                    <input type="submit" value="Upload">
                                 </td>
                             </form>
                             {% else %}
                                 <td>Homework is not active</td>
                             {% endif %}
-                            {% if homework.solution %}
-                                <td><a href="{{ homework.solution.url }}">Download</a></td>
+                            {% if item.studentsolution %}
+                                <td><a href="{{ item.studentsolution.file }}">Download</a></td>
                             {% else %}
                                 <td>Not uploaded yet</td>
-                            {% endif %}                        </tr>
-                        </tbody>
+                            {% endif %}
+                            {% if item.homework.solution_file %}
+                                <td><a href="{{ item.homework.solution_file }}">Download</a></td>
+                            {% else %}
+                                <td>Not uploaded yet</td>
+                            {% endif %}
+                        </tr>
                     {% endfor %}
-                </table>
+                </tbody>
+            </table>
             </div>
             <!-- End of Homeworks -->
         </main>
