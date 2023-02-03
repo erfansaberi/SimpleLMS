@@ -5,7 +5,7 @@ from django.db.models import Model
 
 class Course(Model):
     name = models.CharField(max_length=50)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -15,7 +15,7 @@ class Note(Model):
     name = models.CharField(max_length=100)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/notes')
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
     upload_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class Video(Model):
     subject = models.CharField(max_length=100)
     file = models.FileField(upload_to='uploads/videos')
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.course} - {self.subject}'
@@ -61,7 +61,7 @@ class Notification(Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
