@@ -49,6 +49,7 @@ class Solution(Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     home_work = models.ForeignKey(Homework, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/student_solutions')
+    score = models.IntegerField(null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
