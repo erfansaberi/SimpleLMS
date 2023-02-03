@@ -39,7 +39,8 @@ class Homework(Model):
     solution_file = models.FileField(upload_to='solutions', null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(null=True, blank=True)
-    is_active = models.BooleanField()
+    max_score = models.IntegerField()
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'{self.name} - {self.course}'

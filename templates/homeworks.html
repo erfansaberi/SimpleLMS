@@ -148,8 +148,8 @@
                             {% else %}
                                 <td>Not uploaded yet</td>
                             {% endif %}
-                            {% if item.score %}
-                                <td>{{ item.score }}</td>
+                            {% if item.studentsolution.score %}
+                                <td>{{ item.studentsolution.score }} / {{item.homework.max_score}}</td>
                             {% else %}
                                 <td>Not graded yet</td>
                             {% endif %}
