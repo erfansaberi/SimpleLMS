@@ -156,5 +156,5 @@ class NotesPageView(LoginRequiredMixin, TemplateView):
     template_name = 'notes.html'
 
     def get(self, request):
-        notes = Note.objects.order_by('-id')
+        notes = Note.objects.prefetch_related('course').order_by('-id')
         return render(request, self.template_name, {'notes': notes})
