@@ -136,8 +136,8 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
     template_name = 'homeworks.html'
 
     def get(self, request):
-        homeworks = Homework.objects.order_by('-id')
-        student_solutions = Solution.objects.filter(student=request.user).order_by('-id')
+        homeworks = Homework.objects.prefetch_related('course').order_by('-id')
+        student_solutions = Solution.objects.prefetch_related('home_work').filter(student=request.user).order_by('-id')
         homework_and_solution = collections.namedtuple('HomeworkAndSolution', ['homework', 'studentsolution'])
         homeworks_and_solutions = []
         for homework in homeworks:
