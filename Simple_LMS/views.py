@@ -142,7 +142,7 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
         homeworks_and_solutions = []
         for homework in homeworks:
             for solution in student_solutions:
-                if solution.home_work.id == homework.id:
+                if solution.home_work == homework:
                     homeworks_and_solutions.append(homework_and_solution(homework, solution))
                     break
             else:
