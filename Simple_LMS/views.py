@@ -93,7 +93,7 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
 
     def get(self, request):
         notifications = Notification.objects.filter(is_active=True).order_by('-id')[0:5]
-        homeworks = Homework.objects.filter(is_active=True).order_by('-id')[0:5]
+        homeworks = Homework.objects.prefetch_related('course').filter(is_active=True).order_by('-id')[0:5]
         return render(request, self.template_name, {'notifications': notifications, 'homeworks': homeworks})
 
 
