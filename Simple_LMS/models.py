@@ -52,9 +52,14 @@ class Solution(Model):
     file = models.FileField(upload_to='uploads/student_solutions')
     score = models.IntegerField(null=True, blank=True)
     upload_date = models.DateTimeField(auto_now_add=True)
+    is_final = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.student.username} - {self.home_work} - {self.upload_date}'
+        if self.is_final and self.score:
+            return f'* Final ({self.score} / {self.home_work.max_score}) | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
+        elif self.is_final and not self.score:
+            return f'* Final | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
+        return f'Non-Final | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
 
 
 class Notification(Model):
