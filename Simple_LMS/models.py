@@ -6,10 +6,17 @@ from django.db.models import Model
 class Course(Model):
     name = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
-
+    
     def __str__(self):
         return self.name
 
+class Enrollment(Model):
+    student = models.ForeignKey(User, related_name="enrolls", on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, related_name="enrolls", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.student} -> {self.course}"
+    
 
 class Note(Model):
     name = models.CharField(max_length=100)
@@ -48,6 +55,7 @@ class Homework(Model):
 
 class Solution(Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     home_work = models.ForeignKey(Homework, on_delete=models.CASCADE)
     file = models.FileField(upload_to='uploads/student_solutions')
     score = models.IntegerField(null=True, blank=True)
@@ -56,13 +64,14 @@ class Solution(Model):
 
     def __str__(self):
         if self.is_final and self.score:
-            return f'* Final ({self.score} / {self.home_work.max_score}) | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
+            return f'* Final ({self.score} / {self.home_work.max_score}) | {self.student.username} - {self.home_work.name} - {self.upload_date.date()}'
         elif self.is_final and not self.score:
-            return f'* Final | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
-        return f'Non-Final | {self.student.username} - {self.home_work} - {self.upload_date.date()}'
+            return f'* Final | {self.student.username} - {self.home_work.name} - {self.upload_date.date()}'
+        return f'Non-Final | {self.student.username} - {self.home_work.name} - {self.upload_date.date()}'
 
 
 class Notification(Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     text = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
