@@ -92,8 +92,13 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
     def get(self, request):
-        notifications = Notification.objects.filter(is_active=True).order_by('-id')[0:5]
-        homeworks = Homework.objects.prefetch_related('course').filter(is_active=True).order_by('-id')[0:5]
+        notifications = Notification.objects\
+                                    .select_related('course')\
+                                    .filter(course__enrolls__student=request.user, is_active=True)\
+                                    .order_by('-id')[0:5]
+        homeworks = Homework.objects.prefetch_related('course')\
+                                    .filter(course__enrolls__student=request.user, is_active=True)\
+                                    .order_by('-id')[0:5]
         return render(request, self.template_name, {'notifications': notifications, 'homeworks': homeworks})
 
 
@@ -118,7 +123,10 @@ class NotificationsPageView(LoginRequiredMixin, TemplateView):
     template_name = 'notifications.html'
 
     def get(self, request):
-        notifications = Notification.objects.order_by('-id')
+        notifications = Notification.objects\
+                                    .select_related('course')\
+                                    .filter(course__enrolls__student=request.user, is_active=True)\
+                                    .order_by('-id')
         return render(request, self.template_name, {'notifications': notifications})
 
 
@@ -127,7 +135,9 @@ class VideosPageView(LoginRequiredMixin, TemplateView):
     template_name = 'videos.html'
 
     def get(self, request):
-        videos = Video.objects.prefetch_related('course').order_by('-id')
+        videos = Video.objects.prefetch_related('course')\
+                              .filter(course__enrolls__student=request.user)\
+                              .order_by('-id')
         return render(request, self.template_name, {'videos': videos})
 
 
@@ -136,8 +146,12 @@ class HomeworksPageView(LoginRequiredMixin, TemplateView):
     template_name = 'homeworks.html'
 
     def get(self, request):
-        homeworks = Homework.objects.prefetch_related('course').order_by('-id')
-        student_solutions = Solution.objects.prefetch_related('home_work').filter(student=request.user).order_by('-id')
+        homeworks = Homework.objects.prefetch_related('course')\
+                                    .filter(course__enrolls__student=request.user)\
+                                    .order_by('-id')
+        student_solutions = Solution.objects.prefetch_related('home_work')\
+                                    .filter(student=request.user)\
+                                    .order_by('-id')
         homework_and_solution = collections.namedtuple('HomeworkAndSolution', ['homework', 'studentsolution'])
         homeworks_and_solutions = []
         for homework in homeworks:
@@ -156,5 +170,7 @@ class NotesPageView(LoginRequiredMixin, TemplateView):
     template_name = 'notes.html'
 
     def get(self, request):
-        notes = Note.objects.prefetch_related('course').order_by('-id')
+        notes = Note.objects.prefetch_related('course')\
+                            .filter(course__enrolls__student=request.user)\
+                            .order_by('-id')
         return render(request, self.template_name, {'notes': notes})
