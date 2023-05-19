@@ -102,6 +102,17 @@ class DashboardPageView(LoginRequiredMixin, TemplateView):
         return render(request, self.template_name, {'notifications': notifications, 'homeworks': homeworks})
 
 
+class CoursesPageView(LoginRequiredMixin, TemplateView):
+    login_url = 'login'
+    template_name = 'courses.html'
+    
+    def get(self, request):
+        enrolls = Enrollment.objects.prefetch_related('course')\
+                                    .filter(student=request.user)\
+                                    .order_by('-id')
+        return render(request, self.template_name, {'enrolls': enrolls})
+        
+
 class SolutionUpload(LoginRequiredMixin, View):
     def post(self, request: HttpRequest):
         user = request.user

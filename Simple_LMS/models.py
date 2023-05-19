@@ -13,8 +13,9 @@ class Course(Model):
 class Enrollment(Model):
     student = models.ForeignKey(User, related_name="enrolls", on_delete=models.CASCADE)
     course = models.ForeignKey(Course, related_name="enrolls", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
     score = models.DecimalField(max_digits=4, decimal_places=2) 
-       
+    
     def __str__(self):
         return f"{self.student} -> {self.course}"
     
